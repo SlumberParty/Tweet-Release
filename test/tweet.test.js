@@ -20,7 +20,7 @@ describe('app routes', () => {
 
   it('can create a tweet', () => {
     return request(app)
-      .post('api/v1/tweets')
+      .post('/api/v1/tweets')
       .send({ handle: 'blah', text: 'blah' })
       .then(res => {
         expect(res.body).toEqual({
