@@ -4,6 +4,7 @@ const request = require('supertest');
 const app = require('../lib/app');
 const connect = require('../lib/utils/connect');
 const mongoose = require('mongoose');
+const Tweet = require('../lib/models/Tweet');
 
 describe('app routes', () => {
   beforeAll(() => {
@@ -29,6 +30,17 @@ describe('app routes', () => {
           text: 'blah',
           __v: 0
         });
+      });
+  });
+
+  it('can get all tweets', async() => {
+    const tweet = await Tweet.create({ handle: 'blah', text: 'blah' });
+
+    return request(app)
+      .get('/api/v1/tweets')
+      .then(res => {
+        const tweetJSON = JSON.parse(JSON.stringify(tweet));
+        expect(res.body).toEqual([tweetJSON]);
       });
   });
 });
