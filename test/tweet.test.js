@@ -43,4 +43,19 @@ describe('app routes', () => {
         expect(res.body).toEqual([tweetJSON]);
       });
   });
+
+  it('gets a tweet by id', async() => {
+    const tweet = await Tweet.create({ handle: 'blah', text: 'blah' });
+
+    return request(app)
+      .get(`/api/v1/tweets/${tweet._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          handle: 'blah',
+          text: 'blah',
+          __v: 0
+        });
+      });
+  });
 });
