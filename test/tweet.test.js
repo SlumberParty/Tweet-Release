@@ -69,4 +69,16 @@ describe('app routes', () => {
         expect(res.body.text).toEqual('feck');
       });
   });
+
+  it('can delete a tweet', async() => {
+    const tweet = await Tweet.create({ handle: 'ahh', text: 'ahh' });
+
+    return request(app)
+      .delete(`/api/v1/tweets/${tweet._id}`)
+      .then(res => {
+        const tweetJSON = JSON.parse(JSON.stringify(tweet));
+        console.log(tweetJSON);
+        expect(res.body).toEqual(tweetJSON);
+      });
+  });
 });
