@@ -58,4 +58,15 @@ describe('app routes', () => {
         });
       });
   });
+
+  it('can update the text of a tweet', async() => {
+    const tweet = await Tweet.create({ handle: 'ahh', text: 'ahhh' });
+
+    return request(app)
+      .patch(`/api/v1/tweets/${tweet._id}`)
+      .send({ text: 'feck' })
+      .then(res => {
+        expect(res.body.text).toEqual('feck');
+      });
+  });
 });
