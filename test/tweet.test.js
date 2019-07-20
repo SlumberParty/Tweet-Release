@@ -17,4 +17,18 @@ describe('app routes', () => {
   afterAll(() => {
     return mongoose.connection.close();
   });
+
+  it('can create a tweet', () => {
+    return request(app)
+      .post('api/v1/tweets')
+      .send({ handle: 'blah', text: 'blah' })
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          handle: 'blah',
+          text: 'blah',
+          __v: 0
+        });
+      });
+  });
 });
