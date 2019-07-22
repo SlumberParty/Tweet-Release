@@ -33,6 +33,20 @@ describe('app routes', () => {
       });
   });
 
+  it('can create a random jargon tweet', () => {
+    return request(app)
+      .post('/api/v1/tweets?random=true')
+      .send({ handle: 'blah', text: 'blah' })
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          handle: 'blah',
+          text: expect.any(String),
+          __v: 0
+        });
+      });
+  });
+
   it('can get all tweets', async() => {
     const tweet = await Tweet.create({ handle: 'blah', text: 'blah' });
 
