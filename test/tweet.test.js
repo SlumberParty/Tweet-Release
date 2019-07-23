@@ -91,7 +91,6 @@ describe('app routes', () => {
       .delete(`/api/v1/tweets/${tweet._id}`)
       .then(res => {
         const tweetJSON = JSON.parse(JSON.stringify(tweet));
-        console.log(tweetJSON);
         expect(res.body).toEqual(tweetJSON);
       });
   });
